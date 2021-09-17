@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 const NotesContext = React.createContext({
   notes: [],
   addNote: (title, note) => {},
@@ -23,10 +25,26 @@ export const NotesContextProvider = (props) => {
     setNotes((prevNotes) => {
       return prevNotes.concat(newNote);
     });
+    toast.success("Note added successfully!", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
   const onDeleteNote = (id) => {
     setNotes((prevNotes) => {
       return prevNotes.filter((note) => note.id !== id);
+    });
+    toast.warning("Note deleted!", {
+      position: "bottom-left",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
     });
   };
   // Save notes to localstorage
